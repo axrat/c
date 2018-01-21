@@ -56,9 +56,14 @@ func Execute(cmd *exec.Cmd) {
 	fmt.Println(string(out))
 	goz.Puts(res, string(out))
 }
+func before(){
+	goz.PrintIfError(os.MkdirAll(cr, 0777))
+	os.Chdir(cr)
+}
 func main() {
 	t := time.NewTicker(1 * time.Second)
 	count := 0
+	goz.PrintIfError(os.Remove(ok))
 	L:
 		for {
 			select {
@@ -68,8 +73,7 @@ func main() {
 					t.Stop()
 					break L
 				}
-				goz.PrintIfError(os.MkdirAll(cr, 0777))
-				os.Chdir(cr)
+				before()
 				if !goz.Exists(ok) {
 					fmt.Printf("#+%v\n", goz.Epoch())
 					goz.Puts(ok, time.Now().Local().String())
