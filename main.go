@@ -59,7 +59,6 @@ func Execute(cmd *exec.Cmd) {
 func main() {
 	t := time.NewTicker(1 * time.Second)
 	count := 0
-	go func() {
 	L:
 		for {
 			select {
@@ -80,6 +79,5 @@ func main() {
 				}
 			}
 		}
-	}()
 	goz.Complete()
 }
