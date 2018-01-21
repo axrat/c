@@ -1,12 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" singleton="true">
     <module name="cr" />
-    <working_directory value="$PROJECT_DIR$/" />
+    <working_directory value="$PROJECT_DIR$" />
     <go_parameters value="-i" />
     <kind value="FILE" />
     <filePath value="$PROJECT_DIR$/main.go" />
-    <package value="github.com/onoie/c/cr" />
-    <directory value="$PROJECT_DIR$/" />
+    <directory value="$PROJECT_DIR$" />
     <method />
   </configuration>
 </component>

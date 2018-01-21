@@ -79,7 +79,7 @@ func main() {
 					goz.Puts(ok, time.Now().Local().String())
 					count++
 					proc()
-					fmt.Printf("#-%v@%v\n", time.Now().Format("20060102030405"), count)
+					fmt.Printf("#-%v@%v\n", goz.Now_yyyymmddhhmmss(), count)
 				}
 			}
 		}
