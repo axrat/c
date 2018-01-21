@@ -13,13 +13,16 @@ import (
 	"os"
 	"os/exec"
 )
-var current = goz.ReturnAndExitIfError(os.Getwd()).(string)+"/"
-var cr = current +"cr/"
+
+var current = goz.ReturnAndExitIfError(os.Getwd()).(string) + "/"
+var cr = current + "cr/"
 var ok = cr + "ok"
 var cmds = cr + "cmds"
 var fgo = cr + "f.go"
 var res = cr + "res"
+
 const limit = 9999
+
 func proc() {
 	if !goz.Exists(cmds) {
 		if !goz.Exists(fgo) {
@@ -56,25 +59,27 @@ func Execute(cmd *exec.Cmd) {
 func main() {
 	t := time.NewTicker(1 * time.Second)
 	count := 0
-L:
-	for {
-		select {
-		case <-t.C:
-			if count > limit {
-				fmt.Printf("ProcessLimit")
-				t.Stop()
-				break L
-			}
-			goz.PrintIfError(os.MkdirAll(cr, 0777))
-			os.Chdir(cr)
-			if !goz.Exists(ok) {
-				fmt.Printf("#+%v\n", goz.Epoch())
-				goz.Puts(ok,time.Now().Local().String())
-				count++
-				proc()
-				fmt.Printf("#-%v@%v\n", time.Now().Format("20060102030405"), count)
+	go func() {
+	L:
+		for {
+			select {
+			case <-t.C:
+				if count > limit {
+					fmt.Printf("ProcessLimit")
+					t.Stop()
+					break L
+				}
+				goz.PrintIfError(os.MkdirAll(cr, 0777))
+				os.Chdir(cr)
+				if !goz.Exists(ok) {
+					fmt.Printf("#+%v\n", goz.Epoch())
+					goz.Puts(ok, time.Now().Local().String())
+					count++
+					proc()
+					fmt.Printf("#-%v@%v\n", time.Now().Format("20060102030405"), count)
+				}
 			}
 		}
-	}
+	}()
 	goz.Complete()
 }
